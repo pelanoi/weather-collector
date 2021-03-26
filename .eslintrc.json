@@ -1,0 +1,26 @@
+{
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"node": true
+	},
+	"plugins": [
+    "prettier"
+  ],
+	"extends": [
+		"eslint:recommended"
+	],
+	"parserOptions": {
+		"ecmaVersion": 12
+	},
+	"rules": {
+		"no-console": ["error", { "allow": ["error"] }],
+		"prettier/prettier": [
+			"error",
+			{
+				"doubleQuote": true,
+				"printWidth": 80
+			}
+		]
+	}
+}
