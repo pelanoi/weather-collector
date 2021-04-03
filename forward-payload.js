@@ -1,5 +1,10 @@
 const getStdin = require("get-stdin");
 const axios = require("axios");
+const config = require("./config.json");
+
+const requestConfig = {
+  baseURL: config.host,
+};
 
 getStdin().then(function (text) {
   const lines = text
@@ -22,7 +27,7 @@ getStdin().then(function (text) {
       };
     });
 
-  axios.post("http://localhost:3000/update", lines[0]);
+  axios.post("/update", lines[0], requestConfig);
 });
 
 // {
