@@ -2,14 +2,15 @@
   "name": "weather-collector",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "collector.js",
   "scripts": {
-    "start": "./run.sh"
+    "start": "node collector.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "date-fns": "^2.25.0",
     "get-stdin": "^8.0.0"
   },
   "devDependencies": {
