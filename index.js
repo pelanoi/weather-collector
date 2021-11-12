@@ -50,11 +50,12 @@ async function main() {
       axios.post("/update", lines[0], requestConfig);
     } catch (err) {
       log("Got error");
+      console.error("Attepting recovery");
       if (
         err.stderr &&
         err.stderr.indexOf("Async read stalled, exiting!") !== -1
       ) {
-        return await run("./misc/reset.sh");
+        return await run("sudo ./misc/reset.sh");
       }
 
       console.error(err);
