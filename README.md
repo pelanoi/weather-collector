@@ -34,7 +34,7 @@ sudo apt-get install supervisor
 Then copy the config file provided in the `misc` forlder of this project:
 
 ```bash
-sudo cp ./misc/weather.conf /etc/supervisor/conf.d/weather.conf
+sudo cp ./misc/supervisor/weather.conf /etc/supervisor/conf.d/weather.conf
 ```
 
 Make sure to modify the file's `directory` entry to point to the path where you cloned the code.
