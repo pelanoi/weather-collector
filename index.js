@@ -50,7 +50,15 @@ async function main() {
       axios.post("/update", lines[0], requestConfig);
     } catch (err) {
       log("Got error");
-      throw err;
+      if (
+        err.stderr &&
+        err.stderr.indexOf("Async read stalled, exiting!") !== -1
+      ) {
+        return await run("./misc/reset.sh");
+      }
+
+      console.error(err);
+      process.exit(1);
     }
   }
 }
