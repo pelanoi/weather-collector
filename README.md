@@ -49,16 +49,16 @@ Now you should be up and running pushing weather data to the api.
 
 ## USB reset
 
-Cheap RTL-SDR tunners tend to lock up after a while due to overheating. To solve this issue we have to build this small script that will make sure the tunner will runn continuouslly.
+Cheap RTL-SDR tunners tend to lock up after a while due to overheating. To solve this issue we have to compile this small script that will make sure the tunner will be reseted when it gets locked.
 
-Build it with:
+Compile it with:
 
 ```bash
 cc misc/usbreset.c -o misc/usbreset
 chmod +x misc/usbreset
 ```
 
-The main program will know how to use it from here.
+The main script will know how to use it from here.
 
 
 
