@@ -1,23 +1,15 @@
 const axios = require("axios");
 const config = require("./config.json");
-const { exec } = require("child_process");
-const util = require("util");
-const format = require("date-fns/format");
+const { log, error, run } = require("./utils");
 
 const requestConfig = {
   baseURL: config.host,
 };
 
-const run = util.promisify(exec);
-
-function log(message) {
-  console.info(`[${format(new Date(), "dd MMM, hh:mm:ss")}] ${message}`);
-}
-
 async function main() {
   // eslint-disable-next-line no-constant-condition
   while (true) {
-    log("Start listening for radio");
+    log("Start listening for radio", "test");
 
     try {
       const { stdout, stderr } = await run("rtl_433 -R 32 -F json -E quit");
@@ -41,25 +33,23 @@ async function main() {
           };
         });
 
-      if (lines.length === 0 && stderr) {
-        log("Got error");
-        throw new Error(`rtl command failed: ${stderr}`);
-      }
-
       log("Got message");
       axios.post("/update", lines[0], requestConfig);
     } catch (err) {
       log("Got error");
-      console.error("Attepting recovery");
       if (
         err.stderr &&
         err.stderr.indexOf("Async read stalled, exiting!") !== -1
       ) {
-        return await run("sudo ./misc/reset.sh");
+        try {
+          error("Attepting recovery");
+          await run("sudo ./misc/reset.sh");
+        } catch (err) {
+          error("Failed recovery:", err);
+        }
+      } else {
+        error(err);
       }
-
-      console.error(err);
-      process.exit(1);
     }
   }
 }
