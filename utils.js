@@ -9,11 +9,11 @@ function getTimestamp() {
 }
 
 function log(...args) {
-  console.info(getTimestamp(), ...args);
+  console.info(getTimestamp(), ...args, "\n");
 }
 
 function error(...args) {
-  console.error(getTimestamp(), ...args);
+  console.error(getTimestamp(), ...args, "\n");
 }
 
 module.exports = {
