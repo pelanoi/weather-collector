@@ -1,6 +1,7 @@
 const axios = require("axios");
 const config = require("./config.json");
 const { log, error, run } = require("./utils");
+const { TIME } = require("./zeit");
 
 const requestConfig = {
   baseURL: config.host,
@@ -12,7 +13,9 @@ async function main() {
     log("Start listening for radio", "test");
 
     try {
-      const { stdout, stderr } = await run("rtl_433 -R 32 -F json -E quit");
+      const { stdout } = await run("rtl_433 -R 32 -F json -E quit", {
+        timeout: 2 * TIME.MINUTES,
+      });
       const lines = stdout
         .split("\n")
         .slice(0, -1)
@@ -37,18 +40,12 @@ async function main() {
       axios.post("/update", lines[0], requestConfig);
     } catch (err) {
       log("Got error");
-      if (
-        err.stderr &&
-        err.stderr.indexOf("Async read stalled, exiting!") !== -1
-      ) {
-        try {
-          error("Attepting recovery");
-          await run("sudo ./misc/reset.sh");
-        } catch (err) {
-          error("Failed recovery:", err);
-        }
-      } else {
-        error(err);
+      error(err);
+      try {
+        error("Attepting recovery");
+        await run("sudo ./misc/reset.sh");
+      } catch (err) {
+        error("Failed recovery:", err);
       }
     }
   }
