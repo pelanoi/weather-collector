@@ -10,7 +10,7 @@ const requestConfig = {
 async function main() {
   // eslint-disable-next-line no-constant-condition
   while (true) {
-    log("Start listening for radio", "test");
+    log("Start listening for radio");
 
     try {
       const { stdout } = await run("rtl_433 -R 32 -F json -E quit", {
@@ -37,7 +37,7 @@ async function main() {
         });
 
       log("Got message");
-      axios.post("/update", lines[0], requestConfig);
+      await axios.post("/update", lines[0], requestConfig);
     } catch (err) {
       log("Got error");
       error(err);
