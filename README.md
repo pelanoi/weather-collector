@@ -12,18 +12,18 @@ First thing, obviously, clone/copy the code from this repo on your Pi, then inst
 npm install
 ```
 
-Afterwards, proceed installing external dependencies:
+Afterward, proceed to install external dependencies:
 
 ### rtl_443
 This is responsible for reading the radio signal and passing the output to our code.
 
 See [their docs](https://github.com/merbanan/rtl_433/blob/master/docs/BUILDING.md) for details on building and installing rtl_443.
 
-To test it works, eigther run `rtl_443` by itself, or better yet run `node index.js` in the folder where you cloned this code.
+To test it works, either run `rtl_443`` by itself or better yet run `node index.js` in the folder where you cloned this code.
 
 ### Supervisor
 
-We need this to make sure the process will run continuosly on the Pi.
+We need this to make sure the process will run continuously on the Pi.
 
 Install it using:
 
@@ -31,7 +31,7 @@ Install it using:
 sudo apt-get install supervisor
 ```
 
-Then copy the config file provided in the `misc` forlder of this project:
+Then copy the config file provided in the `misc` folder of this project:
 
 ```bash
 sudo cp ./misc/supervisor/weather.conf /etc/supervisor/conf.d/weather.conf
@@ -45,11 +45,11 @@ Then, start the supervisor process by running:
 sudo supervisorctl start weather
 ```
 
-Now you should be up and running pushing weather data to the api.
+Now you should be up and running pushing weather data to the API.
 
 ## USB reset
 
-Cheap RTL-SDR tunners tend to lock up after a while due to overheating. To solve this issue we have to compile this small script that will make sure the tunner will be reseted when it gets locked.
+Cheap RTL-SDR tuners tend to lock up after a while due to overheating. To solve this issue we have to compile this small script that will make sure the tuner will be reset when it gets locked.
 
 Compile it with:
 
